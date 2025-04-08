@@ -209,7 +209,8 @@ if st.button("Предсказать"):
 		"Inflight service": grade_service,
 		"Cleanliness": grade_clean    
 	}
-	row = pd.DataFrame(row).T
+	row = pd.DataFrame.from_dict(row)
+	st.table(row)
 	grade_total = model.predict(row)
 	print("Общая оценка:", grade_total)
 
