@@ -10,11 +10,6 @@ from sklearn.metrics import confusion_matrix
 df = pd.read_csv("https://raw.githubusercontent.com/evgpat/stepik_from_idea_to_mvp/main/datasets/clients.csv")
 
 grades = [
-	"Age",
-	"Gender",
-	"Customer Type",
-	"Type of travel",
-	"Class",
 	"Inflight wifi service",
 	"Departure/Arrival time convenient",
 	"Ease of Online booking",
@@ -164,13 +159,7 @@ st.write("Средняя задержка отправления для мужч
 st.write("Средняя задержка отправления для женщин:", df[df.Gender == "Female"]["Departure Delay in Minutes"].mean())
 st.write("Средняя задержка отправления для лиц неопределённого пола:", df[df.Gender == "Non-binary"]["Departure Delay in Minutes"].mean())
 
-st.subheader("Предсказание лояльности")
-st.write("Представьтесь:")
-age = st.number_input("Возраст: ", 0, 123)
-gender = st.selectbox("Пол:", ["Мужской", "Женский"])
-loyal = st.checkbox("Лояльный клиент")
-trip_type = st.selectbox("Тип поездки:", ["Деловой", "Личный"])
-air_class = st.selectbox("Класс обслуживания:", ["Эконом", "Эконом плюс", "Бизнес"])
+st.subheader("Предсказание итоговой оценки")
 grade_depart = st.slider("Оцените время вылета: ", 1, 5)
 grade_wifi = st.slider("Оцените WiFi: ", 1, 5)
 grade_gate = st.slider("Оцените расположение выхода на посадку: ", 1, 5)
@@ -189,11 +178,6 @@ grade_clean = st.slider("Оцените чистоту на борту: ", 1, 5)
 
 if st.button("Предсказать"):
 	row = {
-		"Age": age,
-		"Gender": gender,
-		"Customer Type": "Loyal Customer" if loyal else "disloyal Customer",
-		"Type of travel": trip_type,
-		"Class": air_class,
 		"Inflight wifi service": grade_wifi,
 		"Departure/Arrival time convenient": grade_depart,
 		"Ease of Online booking": grade_booking,
