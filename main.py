@@ -7,6 +7,30 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix
 
+grades = [
+    "Inflight wifi service",
+    "Departure/Arrival time convenient",
+    "Ease of Online booking",
+    "Gate location",
+    "Food and drink",
+    "Online boarding",
+    "Seat comfort",
+    "Inflight entertainment",
+    "On-board service",
+    "Leg room service",
+    "Baggage handling",
+    "Checkin service",
+    "Inflight service",
+    "Cleanliness"
+]
+
+X = df[grades]
+X.fillna(X.median(), inplace = True)
+y = df["satisfaction"]
+
+model = LogisticRegression()
+model.fit(X, y)
+
 st.header("Клиенты авиакомпании")
 
 st.subheader("Загрузка и описание данных")
@@ -155,29 +179,6 @@ grade_service = st.slider("Оцените обслуживание на борт
 grade_luggage = st.slider("Оцените обработку багажа: ", 0, 5)
 grade_clean = st.slider("Оцените чистоту на борту: ", 0, 5)
 
-grades = [
-    "Inflight wifi service",
-    "Departure/Arrival time convenient",
-    "Ease of Online booking",
-    "Gate location",
-    "Food and drink",
-    "Online boarding",
-    "Seat comfort",
-    "Inflight entertainment",
-    "On-board service",
-    "Leg room service",
-    "Baggage handling",
-    "Checkin service",
-    "Inflight service",
-    "Cleanliness"
-]
-
-X = df[grades]
-X.fillna(X.median(), inplace = True)
-y = df["satisfaction"]
-
-model = LogisticRegression()
-model.fit(X, y)
 
 if st.button("Предсказать"):
 	row = [age, gender, loyal, trip_type, air_class, grade_depart, grade_wifi, grade_gate, grade_booking, grade_food, grade_seat, grade_legroom, grade_ife, grade_registr, grade_service, grade_luggage, grade_clean]
