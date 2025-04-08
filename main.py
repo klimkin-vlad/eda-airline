@@ -188,11 +188,27 @@ grade_clean = st.slider("Оцените чистоту на борту: ", 1, 5)
 
 
 if st.button("Предсказать"):
-	row = [age, gender, loyal, trip_type, air_class, grade_wifi, grade_depart, grade_booking, grade_gate, grade_food, grade_select, grade_seat, grade_ife, grade_boarding, grade_legroom, grade_luggage, grade_registr, grade_service, grade_clean]
-	if row[2]:
-		row[2] = "Loyal Customer"
-	else:
-		row[2] = "disloyal Customer"
+	row = {
+		"Age": age,
+		"Gender": gender,
+		"Customer Type": "Loyal Customer" if loyal else "disloyal Customer",
+		"Type of travel": trip_type,
+		"Class": air_class,
+		"Inflight wifi service": grade_wifi,
+		"Departure/Arrival time convenient": grade_depart,
+		"Ease of Online booking": grade_booking,
+		"Gate location": grade_gate,
+		"Food and drink": grade_food,
+		"Online boarding": grade_select,
+		"Seat comfort": grade_seat,
+		"Inflight entertainment": grade_ife,
+		"On-board service": grade_boarding,
+		"Leg room service": grade_legroom,
+		"Baggage handling": grade_luggage,
+		"Checkin service": grade_registr,
+		"Inflight service": grade_service,
+		"Cleanliness": grade_clean    
+	}
 	row = pd.DataFrame(row).T
 	grade_total = model.predict(row)
 	print("Общая оценка:", grade_total)
