@@ -154,14 +154,33 @@ grade_registr = st.slider("Оцените регистрацию на рейс: 
 grade_service = st.slider("Оцените обслуживание на борту: ", 0, 5)
 grade_luggage = st.slider("Оцените обработку багажа: ", 0, 5)
 grade_clean = st.slider("Оцените чистоту на борту: ", 0, 5)
+
+grades = [
+    "Inflight wifi service",
+    "Departure/Arrival time convenient",
+    "Ease of Online booking",
+    "Gate location",
+    "Food and drink",
+    "Online boarding",
+    "Seat comfort",
+    "Inflight entertainment",
+    "On-board service",
+    "Leg room service",
+    "Baggage handling",
+    "Checkin service",
+    "Inflight service",
+    "Cleanliness"
+]
+
+X = df[grades]
+X.fillna(X.median(), inplace = True)
+
+model = LogisticRegression()
+model.fit(X, y)
+
 if st.button("Предсказать"):
 	row = [age, gender, loyal, trip_type, air_class, grade_depart, grade_wifi, grade_gate, grade_booking, grade_food, grade_seat, grade_legroom, grade_ife, grade_registr, grade_service, grade_luggage, grade_clean]
 	row = pd.DataFrame(row)
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4)
-model = LogisticRegression()
-model.fit(X_train, y_train)
-y_pred = model.predict(X_test)
-
-confusion_matrix(y_pred, y_test)
+	grade_total = model.predict(row)
+	print("Общая оценка:", grade_total)
 
