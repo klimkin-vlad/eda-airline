@@ -193,7 +193,7 @@ if st.button("Предсказать"):
 		row[2] = "Loyal Customer"
 	else:
 		row[2] = "disloyal Customer"
-	row = pd.DataFrame(row)
+	row = pd.DataFrame(row).T
 	grade_total = model.predict(row)
 	print("Общая оценка:", grade_total)
 
