@@ -7,21 +7,28 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix
 
+df = pd.read_csv("https://raw.githubusercontent.com/evgpat/stepik_from_idea_to_mvp/main/datasets/clients.csv")
+
 grades = [
-    "Inflight wifi service",
-    "Departure/Arrival time convenient",
-    "Ease of Online booking",
-    "Gate location",
-    "Food and drink",
-    "Online boarding",
-    "Seat comfort",
-    "Inflight entertainment",
-    "On-board service",
-    "Leg room service",
-    "Baggage handling",
-    "Checkin service",
-    "Inflight service",
-    "Cleanliness"
+	"Age",
+	"Gender",
+	"Customer Type",
+	"Type of travel",
+	"Class",
+	"Inflight wifi service",
+	"Departure/Arrival time convenient",
+	"Ease of Online booking",
+	"Gate location",
+	"Food and drink",
+	"Online boarding",
+	"Seat comfort",
+	"Inflight entertainment",
+	"On-board service",
+	"Leg room service",
+	"Baggage handling",
+	"Checkin service",
+	"Inflight service",
+	"Cleanliness"
 ]
 
 X = df[grades]
@@ -64,8 +71,6 @@ st.markdown("""
     Inflight service (categorical, int): оценка клиентом обслуживания на борту
     Cleanliness (categorical, int): оценка клиентом чистоты на борту
 """)
-
-df = pd.read_csv("https://raw.githubusercontent.com/evgpat/stepik_from_idea_to_mvp/main/datasets/clients.csv")
 
 st.image("Airbus_A310-308-ET,_Aeroflot_AN1625054.jpg", caption = "Самолёт")
 
@@ -170,18 +175,24 @@ grade_depart = st.slider("Оцените время вылета: ", 1, 5)
 grade_wifi = st.slider("Оцените WiFi: ", 1, 5)
 grade_gate = st.slider("Оцените расположение выхода на посадку: ", 1, 5)
 grade_booking = st.slider("Оцените удобство покупки билета: ", 1, 5)
+grade_select = st.slider("Оцените удобство выбора мест: ", 1, 5)
 grade_food = st.slider("Оцените бортовое питание: ", 1, 5)
 grade_seat = st.slider("Оцените удобство сидений: ", 1, 5)
 grade_legroom = st.slider("Оцените место для ног: ", 1, 5)
 grade_ife = st.slider("Оцените развлечения на борту: ", 1, 5)
 grade_registr = st.slider("Оцените регистрацию на рейс: ", 1, 5)
+grade_boarding = st.slider("Оцените обслуживание при посадке: ", 1, 5)
 grade_service = st.slider("Оцените обслуживание на борту: ", 1, 5)
 grade_luggage = st.slider("Оцените обработку багажа: ", 1, 5)
 grade_clean = st.slider("Оцените чистоту на борту: ", 1, 5)
 
 
 if st.button("Предсказать"):
-	row = [age, gender, loyal, trip_type, air_class, grade_depart, grade_wifi, grade_gate, grade_booking, grade_food, grade_seat, grade_legroom, grade_ife, grade_registr, grade_service, grade_luggage, grade_clean]
+	row = [age, gender, loyal, trip_type, air_class, grade_wifi, grade_depart, grade_booking, grade_gate, grade_food, grade_select, grade_seat, grade_ife, grade_boarding, grade_legroom, grade_luggage, grade_registr, grade_service, grade_clean]
+	if row[2]:
+		row[2] = "Loyal Customer"
+	else:
+		row[2] = "disloyal Customer"
 	row = pd.DataFrame(row)
 	grade_total = model.predict(row)
 	print("Общая оценка:", grade_total)
