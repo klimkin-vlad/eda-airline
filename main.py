@@ -193,9 +193,8 @@ if st.button("Предсказать"):
 		"Inflight service": [grade_service],
 		"Cleanliness": [grade_clean]
 	}
-	st.write(row)
 	row = pd.DataFrame.from_dict(row)
 	st.table(row)
 	grade_total = model.predict(row)
-	print("Общая оценка:", grade_total)
+	st.write("Общая оценка:", grade_total)
 
