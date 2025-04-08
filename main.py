@@ -174,6 +174,7 @@ grades = [
 
 X = df[grades]
 X.fillna(X.median(), inplace = True)
+y = df["satisfaction"]
 
 model = LogisticRegression()
 model.fit(X, y)
